@@ -189,7 +189,6 @@
         <span id="notificationMessage"></span>
         <div class="progress-bar" id="progressBar"></div>
     </div>
-
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
@@ -256,6 +255,12 @@
                 const user = userCredential.user;
                 console.log('User logged in:', user);
                 showNotification('success', 'Login successful!'); // Show success notification
+                
+                // Redirect to HomePage.html after 1 second
+                setTimeout(() => {
+                    window.location.href = 'HomePage.html'; // Redirect to HomePage.html
+                }, 1000); // Delay for 1 second to allow the notification to be seen
+
             } catch (error) {
                 console.error('Error logging in user:', error.message);
                 showNotification('error', 'Error: ' + error.message); // Show error notification
