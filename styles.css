@@ -1,110 +1,227 @@
-/* Global Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f4f8; /* Light background for a softer look */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", Helvetica, Arial, sans-serif;
+    font-weight: 300;
     margin: 0;
 }
 
-.container {
-    background-color: #ffffff; /* White background */
-    padding: 40px; /* Increased padding for a more spacious feel */
-    border-radius: 15px; /* Softer rounded corners */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* More pronounced shadow for depth */
-    width: 100%;
-    max-width: 400px; /* Maximum width for better responsiveness */
-    transition: transform 0.3s; /* Smooth scaling effect */
+/* Define primary color */
+:root {
+    --primary: rgb(182, 157, 230);
 }
 
-.container:hover {
-    transform: scale(1.02); /* Slightly enlarge on hover */
+html,
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background: #f3f2f2;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333; /* Darker text for better contrast */
-    font-size: 24px; /* Larger font size for the title */
-    font-weight: bold; /* Bold title for emphasis */
-}
-
-.input-group {
-    margin-bottom: 20px; /* Increased space between input groups */
+h4 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+    opacity: 0.85;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px; /* Slightly larger font */
-    color: #666; /* Muted color for labels */
+    font-size: 12.5px;
+    color: #000;
+    opacity: 0.8;
+    font-weight: 400;
 }
 
-input {
-    width: 100%;
-    padding: 12px; /* Increased padding for input fields */
-    border: 1px solid #ced4da; /* Lighter border color */
-    border-radius: 5px;
-    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+form {
+    padding: 40px 30px;
+    background: #fefefe;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    width: 300px;
 }
 
-input:focus {
-    outline: none; /* Remove the default focus outline */
-    border-color: #007bff; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle blue shadow */
+form h4 {
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.5);
 }
 
-button {
-    width: 100%;
-    padding: 12px; /* Increased padding for better click surface */
-    background-color: #007bff; /* Bootstrap primary blue */
-    color: white;
-    border: none;
-    border-radius: 5px; /* Softer rounded corners */
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s; /* Transition effects */
-    font-size: 16px; /* Slightly larger button text */
-}
-
-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: translateY(-2px); /* Lift effect on hover */
-}
-
-button:active {
-    transform: translateY(0); /* Reset lift effect on click */
+form h4 span {
+    color: rgba(0, 0, 0, 1);
+    font-weight: 700;
 }
 
 p {
+    line-height: 155%;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #000;
+    opacity: 0.65;
+    font-weight: 400;
+    max-width: 200px;
+    margin-bottom: 40px;
+}
+
+a.discrete {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0);
+    padding-bottom: 4px;
+    margin-left: auto;
+    font-weight: 300;
+    transition: all 0.3s ease;
+    margin-top: 40px;
+}
+
+a.discrete:hover {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    -webkit-appearance: none;
+    width: auto;
+    min-width: 100px;
+    border-radius: 24px;
     text-align: center;
-    margin-top: 10px;
-    color: #666; /* Muted color for paragraph text */
+    padding: 15px 40px;
+    margin-top: 5px;
+    background-color: rgba(182, 157, 230, 0.7); /* Using primary color */
+    color: #fff;
+    font-size: 14px;
+    margin-left: auto;
+    font-weight: 500;
+    box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.13);
+    border: none;
+    transition: all 0.3s ease;
+    outline: 0;
 }
 
-a {
-    color: #007bff; /* Bootstrap link color */
-    text-decoration: none;
-    transition: color 0.3s; /* Smooth color transition */
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 2px 6px -1px rgba(182, 157, 230, 0.65); /* Using primary color */
 }
 
-a:hover {
-    color: #0056b3; /* Darker link color on hover */
-    text-decoration: underline;
+button:active {
+    transform: scale(0.99);
 }
 
-/* Additional Styles for Responsive Design */
-@media (max-width: 480px) {
-    .container {
-        padding: 20px; /* Reduce padding on smaller screens */
-    }
+input {
+    font-size: 16px;
+    padding: 20px 0px;
+    height: 56px;
+    border: none;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    width: 280px;
+    box-sizing: border-box;
+    transition: all 0.3s linear;
+    color: #000;
+    font-weight: 400;
+    -webkit-appearance: none;
+}
 
-    h1 {
-        font-size: 20px; /* Smaller title on mobile */
-    }
+input:focus {
+    border-bottom: solid 1px var(--primary);
+    outline: 0;
+    box-shadow: 0 2px 6px -8px rgba(182, 157, 230, 0.45); /* Using primary color */
+}
 
-    button {
-        font-size: 14px; /* Smaller button text on mobile */
+.floating-label {
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.floating-label label {
+    position: absolute;
+    top: calc(50% - 7px);
+    left: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+    padding-left: 44px;
+}
+
+.floating-label input {
+    width: calc(100% - 44px);
+    margin-left: auto;
+    display: flex;
+}
+
+.icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 56px;
+    width: 44px;
+    display: flex;
+}
+
+.floating-label input:not(:placeholder-shown) {
+    padding: 28px 0px 12px 0px;
+}
+
+.floating-label input:not(:placeholder-shown) + label {
+    transform: translateY(-10px);
+    opacity: 0.7;
+}
+
+.floating-label input:valid:not(:placeholder-shown) + label + .icon svg {
+    opacity: 1;
+}
+
+.floating-label input:not(:valid):not(:focus) + label + .icon {
+    animation-name: shake-shake;
+    animation-duration: 0.3s;
+}
+
+@keyframes shake-shake {
+    0% {
+        transform: translateX(-3px);
     }
+    20% {
+        transform: translateX(3px);
+    }
+    40% {
+        transform: translateX(-3px);
+    }
+    60% {
+        transform: translateX(3px);
+    }
+    80% {
+        transform: translateX(-3px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.session {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    margin: auto auto;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.12);
+}
+
+.left {
+    width: 220px;
+    height: auto;
+    min-height: 100%;
+    position: relative;
+    background-image: url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-size: cover;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.left svg {
+    height: 40px;
+    width: auto;
+    margin: 20px;
 }
