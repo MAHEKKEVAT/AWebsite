@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif; /* Font style */
+            background-color: #e9ecef; /* Light grey background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff; /* White background */
+            padding: 30px; /* Increased padding */
+            border-radius: 10px; /* Softer rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow for container */
+            width: 100%;
+            max-width: 400px; /* Max width */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333; /* Dark text for contrast */
+        }
+
+        .input-group {
+            margin-bottom: 20px; 
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px; 
+            color: #666; 
+        }
+
+        input {
+            width: 100%;
+            padding: 12px; 
+            border: 1px solid #ced4da; 
+            border-radius: 5px; 
+            transition: border-color 0.3s; 
+        }
+
+        input:focus {
+            outline: none; 
+            border-color: #80bdff; 
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+        }
+
+        button {
+            width: 100%;
+            padding: 12px; 
+            background-color: #007bff; 
+            color: white;
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s; 
+        }
+
+        button:hover {
+            background-color: #0056b3; 
+            transform: translateY(-2px); 
+        }
+
+        button:active {
+            transform: translateY(0); 
+        }
+
+        /* Notification container */
+        .notification {
+            display: none; /* Hidden by default */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Sit on top */
+            left: 50%; /* Center the notification */
+            transform: translateX(-50%); /* Center the notification */
+            top: -100px; /* Start above the viewport */
+            padding: 16px; /* Padding */
+            border-radius: 5px; /* Rounded corners */
+            color: #fff; /* White text color */
+            font-size: 17px; /* Font size */
+            width: 300px; /* Fixed width */
+            text-align: center; /* Centered text */
+            transition: top 0.5s ease; /* Smooth transition */
+        }
+
+        /* Success notification */
+        .notification.success {
+            background-color: #4CAF50; /* Green background */
+        }
+
+        /* Error notification */
+        .notification.error {
+            background-color: #f44336; /* Red background */
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            height: 5px; /* Height of the progress bar */
+            background-color: #fff; /* Default to white */
+            width: 100%; /* Full width initially */
+            position: absolute; /* Position it relative to notification */
+            bottom: -5px; /* Positioning below the message */
+            right: 0; /* Align to the right */
+            transform: translateX(0); /* Start from the right */
+            transition: background-color 0.5s; /* Smooth transition for color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div id="notification" class="notification">
+        <span id="notificationIcon"></span>
+        <span id="notificationMessage"></span>
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsoet2YlQuE_VCn38JxSLEVTqPcJVoULk",
+            authDomain: "mywebsite-3f0a8.firebaseapp.com",
+            projectId: "mywebsite-3f0a8",
+            storageBucket: "mywebsite-3f0a8.firebasestorage.app",
+            messagingSenderId: "683900610906",
+            appId: "1:683900610906:web:b4364a57332989b8166b63",
+            measurementId: "G-PTTN3M405E"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Function to show notifications
+        function showNotification(type, message) {
+            const notification = document.getElementById('notification');
+            const notificationIcon = document.getElementById('notificationIcon');
+            const notificationMessage = document.getElementById('notificationMessage');
+            const progressBar = document.getElementById('progressBar');
+
+            // Set notification type and message
+            notification.className = `notification ${type}`;
+            notificationMessage.textContent = message;
+
+            // Set icon and progress bar color based on type
+            if (type === 'success') {
+                notificationIcon.innerHTML = '✔️'; // Success icon
+                progressBar.style.backgroundColor = '#4CAF50'; // Green progress bar
+            } else {
+                notificationIcon.innerHTML = '❌'; // Error icon
+                progressBar.style.backgroundColor = '#f44336'; // Red progress bar
+            }
+
+            // Show notification with animation
+            notification.style.display = 'block';
+            notification.style.top = '20px'; // Animate to just below the top
+            progressBar.style.width = '100%'; // Start filling the progress bar
+
+            // Hide notification after 4 seconds
+            setTimeout(() => {
+                notification.style.top = '-100px'; // Slide up out of view
+                progressBar.style.width = '0'; // Reset the progress bar
+                notification.style.display = 'none'; // Hide after animation completes
+            }, 4000);
+        }
+
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                // Signed in 
+                const user = userCredential.user;
+                console.log('User logged in:', user);
+                showNotification('success', 'Login successful!'); // Show success notification
+            } catch (error) {
+                console.error('Error logging in user:', error.message);
+                showNotification('error', 'Error: ' + error.message); // Show error notification
+            }
+        });
+    </script>
+</body>
+</html>
