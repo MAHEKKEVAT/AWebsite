@@ -30,7 +30,6 @@
             text-align: center;
             margin-bottom: 20px;
             color: #333; /* Dark text for contrast */
-            font-weight: bold; /* Make the title bold */
         }
 
         .input-group {
@@ -128,7 +127,7 @@
             </div>
             <div class="input-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password " required>
+                <input type="password" id="password" required>
             </div>
             <button type="submit">Login</button>
         </form>
@@ -204,7 +203,7 @@
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 // Signed in 
                 const user = userCredential.user;
-                console.log('User  logged in:', user);
+                console.log('User logged in:', user);
                 showNotification('success', 'Login successful!'); // Show success notification
             } catch (error) {
                 console.error('Error logging in user:', error.message);
