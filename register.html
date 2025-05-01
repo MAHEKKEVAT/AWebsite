@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Create an Account</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  /* Container styling */
+  .register-container {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+  }
+
+  /* Form styles */
+  .form-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  input {
+    width: 100%;
+    padding: 16px 12px 16px 45px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.2);
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 45px;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 0 8px;
+    font-size: 0.9em;
+    color: #666;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+
+  input:focus + label,
+  input:not(:placeholder-shown) + label {
+    top: -10px;
+    font-size: 0.75em;
+    color: #667eea;
+  }
+
+  /* Icons inside inputs */
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 24px;
+    fill: #aaa;
+    transition: fill 0.3s;
+  }
+
+  input:focus ~ .icon {
+    fill: #667eea;
+  }
+
+  /* Submit button */
+  button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background: linear-gradient(135deg, #5a65e0, #6e4a9b);
+    transform: translateY(-2px);
+  }
+
+  /* Back to login link */
+  .back-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1em;
+    color: #667eea;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #4a54e1;
+  }
+
+  /* Toast styles */
+  #toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 9999;
+  }
+  #toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #toast.hide {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+</style>
+</head>
+<body>
+
+<div class="register-container">
+  <h2>Create an Account</h2>
+  <p>Fill in the details below to register.</p>
+  <form id="registerForm" novalidate>
+    <!-- Name -->
+    <div class="form-group">
+      <input type="text" id="name" placeholder=" " required autocomplete="off" />
+      <label for="name">Full Name</label>
+      <i class="fas fa-user icon"></i>
+    </div>
+    <!-- Email -->
+    <div class="form-group">
+      <input type="email" id="email" placeholder=" " required autocomplete="off" />
+      <label for="email">Email</label>
+      <i class="fas fa-envelope icon"></i>
+    </div>
+    <!-- Phone -->
+    <div class="form-group">
+      <input type="tel" id="phone" placeholder=" " required autocomplete="off" />
+      <label for="phone">Phone</label>
+      <i class="fas fa-phone icon"></i>
+    </div>
+    <!-- Password -->
+    <div class="form-group">
+      <input type="password" id="password" placeholder=" " required />
+      <label for="password">Password</label>
+      <i class="fas fa-lock icon"></i>
+    </div>
+    <!-- Confirm Password -->
+    <div class="form-group">
+      <input type="password" id="confirmPassword" placeholder=" " required />
+      <label for="confirmPassword">Confirm Password</label>
+      <i class="fas fa-lock icon"></i>
+    </div>
+    <!-- Submit Button -->
+    <button type="submit" id="signupBtn">Sign Up</button>
+    <!-- Back to Login -->
+    <div class="back-link" id="backToLogin">Back to Login</div>
+  </form>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast"></div>
+
+<!-- Firebase SDKs and Script -->
+<script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"></script>
+
+<script>
+  // Initialize Firebase (use your config)
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  const toastEl = document.getElementById('toast');
+
+  function showToast(message, duration=3000, success=true) {
+    toastEl.innerText = message;
+    toastEl.style.backgroundColor = success ? '#4CAF50' : '#f44336';
+    toastEl.className = 'show';
+    setTimeout(() => {
+      toastEl.className = 'hide';
+    }, duration);
+  }
+
+  document.getElementById('backToLogin').addEventListener('click', () => {
+    window.location.href='index.html'; // change if your login page is different
+  });
+
+  document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Get form values
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    // Basic validation
+    if (!name || !email || !phone || !password || !confirmPassword) {
+      showToast('Please fill all fields.', 3000, false);
+      return;
+    }
+    if (password !== confirmPassword) {
+      showToast('Passwords do not match.', 3000, false);
+      return;
+    }
+    // Optional: add more validation (email format, phone format, password strength)
+
+    try {
+      // Sign up user
+      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+
+      // Save additional info in Firestore
+      await db.collection('Users').doc(user.uid).set({
+        name,
+        email,
+        phone,
+        createdAt: new Date()
+      });
+
+      showToast('Registration successful! Redirecting...', 3000);
+      setTimeout(() => {
+        window.location.href='index.html'; // redirect after success
+      }, 1500);
+    } catch (error) {
+      showToast(error.message, 3000, false);
+    }
+  });
+</script>
+</body>
+</html>
